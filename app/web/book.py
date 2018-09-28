@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from flask import Blueprint
-# from app import create_app   ---------------
+
 from helper import is_isbn_or_key
 from shu_book import ShuBook
 
-# 蓝图
-web = Blueprint('web',__name__)  # 参数：蓝图名称，所在的包
+# 蓝图 替换到 __init__里注册了
+# web = Blueprint('web',__name__)  # 参数：蓝图名称，所在的包
 
+from . import web
 # app = create_app()   ----------
 print('id为'+str(id(web))+'的app路由实例化')
 

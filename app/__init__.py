@@ -17,5 +17,5 @@ def create_app():
     return app   #这里之所以报错 return outside function 是因为我上面写的是class create_app  return返回的是def
 
 def register_blueprint(app):
-    from app.web.book import web
+    from app.web import web
     app.register_blueprint(web)
