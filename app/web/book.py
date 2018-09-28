@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+from flask import jsonify,request
 from helper import is_isbn_or_key
 from shu_book import ShuBook
 
@@ -19,8 +19,9 @@ def hello():
     return '<html><h1>HelloWorld！~~！！~！哈1哈2哈3</h1></html>',200,headers
 
 # 视图函数
-@web.route('/book/search/<q>/<page>')
-def search(q,page):
+# @web.route('/book/search/<q>/<page>')
+@web.route('/book/search')   # 采用http://127.0.0.1:5000/book/search?q=9787501524044&page=1 形式访问
+def search():
     '''
     q: 普通搜索  isbn
     page:
@@ -28,6 +29,8 @@ def search(q,page):
     # isbn10 10个0-9的数字，其中可能有 -
     :return:
     '''
+    q = request.args['q']
+    page = request.args['page']
     isbn_or_key = is_isbn_or_key(q)
     print(isbn_or_key)
     if isbn_or_key == 'isbn':
