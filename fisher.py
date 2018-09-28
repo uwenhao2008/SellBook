@@ -19,36 +19,17 @@ __mtime__ = '2018-09-14'
                   ┃┫┫  ┃┫┫
                   ┗┻┛  ┗┻┛
 """
-from flask import Flask,jsonify
-from shu_book import ShuBook
-from helper import is_isbn_or_key
-# from config import DEBUG   #导入配置文件的配置参数
-# 实例化
-app = Flask(__name__)
-# 导入配置文件路径
-app.config.from_object('config')
+from app import create_app
+# from shu_book import ShuBook
+# from helper import is_isbn_or_key
+# from config import DEBUG,JSON_AS_ASCII   #导入配置文件的配置参数
 
-# 视图函数
-@app.route('/book/search/<q>/<page>')
-def search(q,page):
-    '''
-    q: 普通搜索  isbn
-    page:
-    # isbn13 由13个0-9的数字组成
-    # isbn10 10个0-9的数字，其中可能有 -
-    :return:
-    '''
-    isbn_or_key = is_isbn_or_key(q)
-    print(isbn_or_key)
-    # if isbn_or_key == 'isbn':
-    #     return ShuBook.search_by_isbn(q)
-    # else:
-    #     return ShuBook.search_by_keyword(q)
-    # return jsonify(result)
-
-
-
-
+app = create_app()
+from app.web import book   # 强行导入book.py  此时芮苒成功注册了路由，但是依然是404
 
 if __name__ == '__main__':
+    print('id为' + str(id(app)) + '启动')
+    app.config['JSON_AS_ASCII'] = False
     app.run(debug = app.config['DEBUG'])
+else:
+    print('fisher不是作为__main__文件执行的')

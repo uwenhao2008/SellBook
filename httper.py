@@ -10,7 +10,7 @@ import requests
 
 class HTTP:
     @staticmethod
-    def get(self,url,return_json = True):
+    def get(url, return_json = True):   # 没有 self 参数~~~~~~~~~
         r = requests.get(url)
         # restful API
         # json
