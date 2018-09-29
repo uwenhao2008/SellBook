@@ -25,7 +25,7 @@ from app import create_app
 # from config import DEBUG,JSON_AS_ASCII   #导入配置文件的配置参数
 
 app = create_app()
-from app.web import book   # 强行导入book.py  此时芮苒成功注册了路由，但是依然是404
+from app.web import book   # 强行导入book.py  此时仍然成功注册了路由，但是依然是404
 
 if __name__ == '__main__':
     print('id为' + str(id(app)) + '启动')

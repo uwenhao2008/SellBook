@@ -3,7 +3,7 @@
 '''
 业务逻辑代码
 '''
-from httper import HTTP
+from app.libs.httper import HTTP
 from flask import jsonify, current_app
 
 
@@ -23,7 +23,7 @@ class ShuBook:
         # 纠结这么就的问题终于解决了，我做个总结，22行这里我以前生成的是dict 必须要解析会json然后返回给
 
     @classmethod
-    def search_by_keyword(cls,keyword,page=1):
+    def search_by_keyword(cls, keyword, page=1):
         url = cls.keyword_url.format(keyword, current_app.config['PER_PAGE'], cls.calculate_start(page))
         result = HTTP.get(url)
         return jsonify(result)

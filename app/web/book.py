@@ -3,8 +3,8 @@
 from flask import jsonify,request
 
 from app.forms.book import SearchForm
-from helper import is_isbn_or_key
-from shu_book import ShuBook
+from app.libs.helper import is_isbn_or_key
+from app.spider.shu_book import ShuBook
 
 # 蓝图 替换到 __init__里注册了
 # web = Blueprint('web',__name__)  # 参数：蓝图名称，所在的包

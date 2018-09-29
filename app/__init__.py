@@ -6,6 +6,7 @@ __author__ = 'MacVSPC'
 __mtime__ = '2018-09-20'
 """
 from flask import Flask
+from app.models.book import db
 
 def create_app():
     # 实例化
@@ -14,8 +15,13 @@ def create_app():
     # 导入配置文件路径
     app.config.from_object('app.secure')
     app.config.from_object('app.setting')
+    register_blueprint(app)  # 蓝图注册到app核心对象上
 
-    register_blueprint(app)    # 蓝图注册到app核心对象上
+    # 初始化db
+    db.init_app(app)
+    # 初始化model
+    db.create_all()
+
     return app   #这里之所以报错 return outside function 是因为我上面写的是class create_app  return返回的是def
 
 def register_blueprint(app):
