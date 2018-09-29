@@ -12,7 +12,9 @@ def create_app():
     app = Flask(__name__)
     print('id为' + str(id(app)) + '的路由注册')
     # 导入配置文件路径
-    app.config.from_object('config')
+    app.config.from_object('app.secure')
+    app.config.from_object('app.setting')
+
     register_blueprint(app)    # 蓝图注册到app核心对象上
     return app   #这里之所以报错 return outside function 是因为我上面写的是class create_app  return返回的是def
 

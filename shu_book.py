@@ -4,7 +4,8 @@
 业务逻辑代码
 '''
 from httper import HTTP
-from flask import jsonify
+from flask import jsonify, current_app
+
 
 class ShuBook:
     isbn_url = 'http://t.yushu.im/v2/book/isbn/{}'
@@ -22,7 +23,11 @@ class ShuBook:
         # 纠结这么就的问题终于解决了，我做个总结，22行这里我以前生成的是dict 必须要解析会json然后返回给
 
     @classmethod
-    def search_by_keyword(cls,keyword,count=15,start=0):
-        url = cls.keyword_url.format(keyword,count,start)
+    def search_by_keyword(cls,keyword,page=1):
+        url = cls.keyword_url.format(keyword, current_app.config['PER_PAGE'], cls.calculate_start(page))
         result = HTTP.get(url)
         return jsonify(result)
+
+    @staticmethod
+    def calculate_start(page):
+        return (page-1) * current_app.config['PER_PAGE']
