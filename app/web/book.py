@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from flask import jsonify,request
+
+from app.forms.book import SearchForm
 from helper import is_isbn_or_key
 from shu_book import ShuBook
 
@@ -29,12 +31,20 @@ def search():
     # isbn10 10个0-9的数字，其中可能有 -
     :return:
     '''
-    q = request.args['q']
-    page = request.args['page']
-    isbn_or_key = is_isbn_or_key(q)
-    print(isbn_or_key)
-    if isbn_or_key == 'isbn':
-        return ShuBook.search_by_isbn(q)     # 得到的是json数据，因为已经把dict --> json
+    # q = request.args['q']
+    # page = request.args['page']
+
+    # 验证层
+    form = SearchForm(request.args)
+    if form.validate():
+        q = form.q.data.strip()  # 去除前后的空格
+        page = form.page.data
+        isbn_or_key = is_isbn_or_key(q)
+        print(isbn_or_key)
+        if isbn_or_key == 'isbn':
+            return ShuBook.search_by_isbn(q)     # 得到的是json数据，因为已经把dict --> json
+        else:
+            return ShuBook.search_by_keyword(q)
     else:
-        return ShuBook.search_by_keyword(q)
-    # return jsonify(result)
+        # return jsonify({'msg':'Wrong,Error!!!'})
+        return jsonify(form.errors)
