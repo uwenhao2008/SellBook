@@ -20,7 +20,7 @@ def create_app():
     # 初始化db
     db.init_app(app)
     # 初始化model
-    db.create_all()
+    db.create_all(app=app)
 
     return app   #这里之所以报错 return outside function 是因为我上面写的是class create_app  return返回的是def
 

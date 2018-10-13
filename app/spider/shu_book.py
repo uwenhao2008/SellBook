@@ -15,7 +15,7 @@ class ShuBook:
     def search_by_isbn(cls,isbn):
         url = cls.isbn_url.format(isbn)
         # 初步判断 是HTTP.get没有成功传递 url参数
-        print('--->>>定位专用<<<---')
+        print('--->>>定位专用--search_by_isbn<<<---')
         print(url)
         result = HTTP.get(url)   # result是dict格式的 result会被转化为字典 这里没有传递第二个参数，就会采用默认的
         print(result)   #---OK 有数据的
@@ -25,6 +25,7 @@ class ShuBook:
     @classmethod
     def search_by_keyword(cls, keyword, page=1):
         url = cls.keyword_url.format(keyword, current_app.config['PER_PAGE'], cls.calculate_start(page))
+        print('--->>>定位专用--search_by_keyword<<<---')
         result = HTTP.get(url)
         return jsonify(result)
 

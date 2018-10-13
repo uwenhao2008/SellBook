@@ -8,6 +8,7 @@ from app.spider.shu_book import ShuBook
 
 # 蓝图 替换到 __init__里注册了
 # web = Blueprint('web',__name__)  # 参数：蓝图名称，所在的包
+from app.view_models.book import BookViewModel
 
 from . import web
 # app = create_app()   ----------
@@ -42,9 +43,12 @@ def search():
         isbn_or_key = is_isbn_or_key(q)
         print(isbn_or_key)
         if isbn_or_key == 'isbn':
-            return ShuBook.search_by_isbn(q)     # 得到的是json数据，因为已经把dict --> json
+            result = ShuBook.search_by_isbn(q).json     # 得到的是json数据，因为已经把dict --> json
+            result = BookViewModel.package_single(result, q)
         else:
-            return ShuBook.search_by_keyword(q)
+            result = ShuBook.search_by_keyword(q).json
+            result = BookViewModel.package_collection(result, q)
+        return jsonify(result)
     else:
         # return jsonify({'msg':'Wrong,Error!!!'})
         return jsonify(form.errors)
