@@ -19,7 +19,7 @@ print('id为'+str(id(web))+'的app路由实例化')
 @web.route('/hello')  # @app-->@web
 def hello():
     headers = {
-        'content-type':'text/html',
+        'content-type':'text/html;charset=utf-8',
     }
     return '<html><h1>HelloWorld！~~！！~！哈1哈2哈3</h1></html>',200,headers
 
@@ -55,14 +55,15 @@ def search():
             # result = ShuBook.search_by_keyword(q).json
             # result = BookViewModel.package_collection(result, q)
         books.fill(shubook, q)
-
-        return render_template('search_result.html', books=books)
+        # return render_template('search_result.html', books=books)
         # return json.dumps(books,default= lambda o: o.__dict__)      # ----》》》》  dict迭代dict都顺便解析位json
         # return jsonify(books)   # TypeError: Object of type 'BookCollection' is not JSON serializable
         # return jsonify(result)
     else:
+        flash('搜索的关键字不符合要求，请重新输入')
         # return jsonify({'msg':'Wrong,Error!!!'})
-        return jsonify(form.errors)
+        # return jsonify(form.errors)
+    return render_template('search_result.html', books=books)
 
 @web.route('/test')
 def test():
@@ -85,3 +86,39 @@ def layout():
     }
     # data_r 传给模板的数据
     return render_template('layout.html', data_r = r)
+
+@web.route('/book/<isbn>/detail')
+def book_detail():
+    pass
+
+@web.route('/index')
+def index():
+    headers = {
+        'content-type': 'text/html;charset=utf-8',
+    }
+    return '<html><h1>HelloIndex+我是谁</h1></html>', 200, headers
+
+@web.route('/my_gift')
+def my_gifts():
+    pass
+
+@web.route('/my_wish')
+def my_wish():
+    pass
+
+@web.route('/pending')
+def pending():
+    pass
+
+@web.route('/login')
+def login():
+    pass
+
+@web.route('/personal_center')
+def personal_center():
+    pass
+
+@web.route('/logout')
+def logout():
+    pass
+
