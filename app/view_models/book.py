@@ -6,6 +6,15 @@ __author__ = 'MacVSPC'
 __mtime__ = '2018-10-10'
 """
 class BookViewModel:
+    def __init__(self, book):
+        self.title = book['title']
+        self.publisher = book['publisher']
+        self.author = '、'.join(book['author'])
+        self.image = book['image']
+        self.price = book['price']
+        self.summary = book['summary']
+        self.pages = book['pages']
+
     # 定义需要的数据类型--关键字查询  data为API回调数据
     @classmethod
     def package_single(cls, data, keyword):
@@ -49,4 +58,15 @@ class BookViewModel:
             'image': data['image']
         }
         return book
+
+class BookCollection:
+    def __init__(self):
+        self.total = 0
+        self.books = []
+        self.keyword = ''
+
+    def fill(self, shu_book, keyword):
+        self.total = shu_book.total
+        self.keyword = keyword
+        self.books = [BookViewModel(book) for book in shu_book.books]
 

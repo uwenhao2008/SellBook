@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    我的第一个Title
+{%- endblock %}
+
+{#{% block head %}#}
+{#    {{ super() }}#}
+{#    <div>Head你个大头鬼</div>#}
+{#{%- endblock %}#}
+
+{% block content %}
+    {{ super() }}
+    我的名字是：{{ data_r.name }}
+    年纪{{ data_r.age }}
+    消息闪现：{% set messages = get_flashed_messages(category_filter=['mm1']) %}{{ messages }}
+{%- endblock %}
+
+{% block foot %}
+    FoooooT~~~~
+{%- endblock %}

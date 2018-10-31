@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+{#    <link rel="stylesheet" href="/static/test.css">#}
+    <link rel="stylesheet" href="{{ url_for('static', filename='test.css') }}">
+</head>
+<body>
+    {%- block head -%}
+        <div>This is Head</div>
+        -->>{{ data_r.name | trim }}<<--
+    {%- endblock -%}
+    {% block content %}
+        <div>This is content</div>
+    {% endblock %}
+
+    {% block foot %}
+        <div>This is foot</div>
+    {% endblock %}
+</body>
+</html>
