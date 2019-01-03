@@ -6,7 +6,7 @@ __author__ = 'MacVSPC'
 __mtime__ = '2018-09-20'
 """
 from flask import Flask
-from app.models.book import db
+from app.models.base import db
 
 def create_app():
     # 实例化
@@ -22,8 +22,10 @@ def create_app():
     # 初始化model
     db.create_all(app=app)
 
+
     return app   #这里之所以报错 return outside function 是因为我上面写的是class create_app  return返回的是def
 
 def register_blueprint(app):
     from app.web import web
-    app.register_blueprint(web)
+    # 注册带前缀的蓝图 通过ip/web/XX访问视图函数  正对多有@web.route('/XX')的视图都这么访问
+    app.register_blueprint(web, url_prefix='/web')

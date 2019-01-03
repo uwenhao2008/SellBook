@@ -26,11 +26,11 @@
                 </div>
                 <div>
                     <span>出版年：</span>
-                    <span>{{ book.pubdate }}</span>
+                    <span>{{ book.pubdate or '未知'}}</span>
                 </div>
                 <div>
                     <span>页数：</span>
-                    <span>{{ book.pages }}</span>
+                    <span>{{ book.pages or '未知' }}</span>
                 </div>
                 <div>
                     <span>定价：</span>
@@ -82,7 +82,7 @@
     </div>
     <div style="margin-top:15px;" class="row">
         <div class="col-md-11">
-            <p class="description-font">{{ book.summary }}</p>
+            <p class="description-font">{{ book.summary or '无' }}</p>
         </div>
     </div>
     {% if gifts.total!= 0 and not has_in_gifts %}

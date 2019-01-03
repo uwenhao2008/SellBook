@@ -6,11 +6,11 @@ __author__ = 'MacVSPC'
 __mtime__ = '2018-09-29'
 """
 from sqlalchemy import Column, Integer, String
-from flask_sqlalchemy import SQLAlchemy
+from app.models.base import Base
 
-db = SQLAlchemy()
-
-class Book(db.Model):
+# Base继承了dbModel，子类继承Base即可
+# class Book(db.Model):
+class Book(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     title = Column(String(50), nullable=False)
     author = Column(String(30), default="未名")

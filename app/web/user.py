@@ -5,6 +5,7 @@ __title__ = ''
 __author__ = 'MacVSPC'
 __mtime__ = '2018-09-28'
 """
+# 由于初始化里就没有user。所以这里不需要的，直接删除这个文件  ！！！！！！！！！！
 from . import web
 @web.route('/login')
 def login():

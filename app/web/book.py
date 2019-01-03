@@ -1,18 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import json
 
-from flask import jsonify,request,render_template,flash
+from flask import request, render_template, flash
 
 from app.forms.book import SearchForm
 from app.libs.helper import is_isbn_or_key
 from app.spider.shu_book import ShuBook
-
 # 蓝图 替换到 __init__里注册了
 # web = Blueprint('web',__name__)  # 参数：蓝图名称，所在的包
 from app.view_models.book import BookViewModel, BookCollection
-
 from . import web
+
 # app = create_app()   ----------
 print('id为'+str(id(web))+'的app路由实例化')
 
@@ -25,7 +23,7 @@ def hello():
 
 # 视图函数
 # @web.route('/book/search/<q>/<page>')
-@web.route('/book/search')   # 采用http://127.0.0.1:5000/book/search?q=9787501524044&page=1 形式访问
+@web.route('/book/search')  # 采用http://127.0.0.1:5000/book/search?q=9787501524044&page=1 形式访问
 def search():
     '''
     q: 普通搜索  isbn
@@ -88,8 +86,12 @@ def layout():
     return render_template('layout.html', data_r = r)
 
 @web.route('/book/<isbn>/detail')
-def book_detail():
-    pass
+def book_detail(isbn):
+    yushu_book = ShuBook()   # 打断点
+    yushu_book.search_by_isbn(isbn)
+    # book = BookViewModel(yushu_book.books[0])  # 打断点
+    book = BookViewModel(yushu_book.first)
+    return render_template('book_detail.html', book=book, wish=[], gifts=[], wishes=[] )
 
 @web.route('/index')
 def index():
@@ -98,9 +100,6 @@ def index():
     }
     return '<html><h1>HelloIndex+我是谁</h1></html>', 200, headers
 
-@web.route('/my_gift')
-def my_gifts():
-    pass
 
 @web.route('/my_wish')
 def my_wish():
@@ -110,15 +109,23 @@ def my_wish():
 def pending():
     pass
 
-@web.route('/login')
-def login():
-    pass
-
 @web.route('/personal_center')
 def personal_center():
     pass
 
 @web.route('/logout')
 def logout():
+    pass
+
+@web.route('/save_to_wish')
+def save_to_wish():
+    pass
+
+@web.route('/send_drift')
+def send_drift():
+    pass
+
+@web.route('/satisfy_wish')
+def satisfy_wish():
     pass
 

@@ -23,4 +23,3 @@ a.foo1()  # func is func
 A.foo1(a) # func is func
 A.foo2() # static_func is static_func
 A.foo3() # func_cls is func_cls
-A

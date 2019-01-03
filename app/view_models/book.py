@@ -14,6 +14,13 @@ class BookViewModel:
         self.price = book['price']
         self.summary = book['summary']
         self.pages = book['pages']
+        self.isbn = book['isbn']
+
+    @property
+    def intro(self):
+        intros = filter(lambda x: True if x else False,
+                        [self.author, self.publisher, self.price])
+        return '/'.join(intros)
 
     # 定义需要的数据类型--关键字查询  data为API回调数据
     @classmethod
